@@ -1,16 +1,15 @@
 class Array
   def flatten_a
-    # to_s.delete('[]').split(',').map!(&:to_i) #works only with integer
+    out = []
 
-    to_s.delete('[]').split(',').map{ |el|
-      el.strip!
-      if el.empty?
-        nil
-      elsif /'|"/ =~ el
-        el.delete("\"'")
+    arr.each do |el|
+      if el.kind_of?(Array)
+        out = out + flatten_a(el)
       else
-        el.to_i
+        out << el
       end
-    }.compact
+    end
+
+    out
   end
 end
